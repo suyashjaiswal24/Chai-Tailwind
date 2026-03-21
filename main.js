@@ -1,7 +1,17 @@
 
+// const styles = {
+//     "border-10" : "border: 10px solid red",
+//     "border-20" : "border: 20px solid red",
+//     "border-30" : "border: 30px solid red",
+//     "color-green" : "color: green"
+// }
+
+
 const styles = {
-    "border-10" : "border: 10px solid red",
-    "color-green" : "color: green"
+    border: function(p){
+        return `border: ${p}px solid red`
+    }, 
+    color : (v) => `color: ${v}`
 }
 
 
@@ -15,11 +25,15 @@ let style = ""
 
 classArray.forEach((cl) => {
     
-    let strippedClassName = cl.slice(5); 
-    console.log("StrippedClassName: ", strippedClassName) // StrippedClassName:  border-10            StrippedClassName:  color-green
+    const parts = cl.split("-") // parts = ["chai", "border", "10"]       parts = ["chai", "color", "green"]
 
-    if(styles[strippedClassName]){
-        style += styles[strippedClassName] + "; " //style="border: 10px solid red;"              style="border: 10px solid red; color: green;"
+    const type = parts[1] // border      color
+    const value = parts[2] // 10         green
+
+    if(styles[type]){
+        console.log(`Style for ${type}-> `, styles[type](value) + "; ") //Style for border->  border: 10px solid red;           Style for color->  color: green; 
+        style += styles[type](value) + "; "
+        console.log( `Element Style becomes-> ` , style) // Element Style becomes->  border: 10px solid red;      Element Style becomes->  border: 10px solid red; color: green;
     }
 })
 
