@@ -1,17 +1,28 @@
 
 const styles = {
     "border-10" : "border: 10px solid red",
-    "c-green" : "color: green"
+    "color-green" : "color: green"
 }
 
 
 let ele = document.querySelector('[class]')
 console.log("Element: ", ele)
 
-let strippedClassName = ele.className.slice(5)
+const classArray = Array.from(ele.classList)
+console.log("ClassArray: ", classArray) // ClassArray:  (2) ['chai-border-10', 'chai-color-green']
 
-console.log("StrippedClassName: ", strippedClassName)
+let style = ""
 
-if(styles[strippedClassName]){
-    ele.style = styles[strippedClassName]
-}
+classArray.forEach((cl) => {
+    
+    let strippedClassName = cl.slice(5); 
+    console.log("StrippedClassName: ", strippedClassName) // StrippedClassName:  border-10            StrippedClassName:  color-green
+
+    if(styles[strippedClassName]){
+        style += styles[strippedClassName] + "; " //style="border: 10px solid red;"              style="border: 10px solid red; color: green;"
+    }
+})
+
+ele.style = style // <h1 class="chai-border-10 chai-color-green" style="border: 10px solid red; color: green;">Hello ji</h1>
+
+
