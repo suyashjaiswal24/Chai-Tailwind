@@ -1,12 +1,4 @@
 
-// const styles = {
-//     "border-10" : "border: 10px solid red",
-//     "border-20" : "border: 20px solid red",
-//     "border-30" : "border: 30px solid red",
-//     "color-green" : "color: green"
-// }
-
-
 const styles = {
     border: function(p){
         return `border: ${p}px solid red`
@@ -15,10 +7,12 @@ const styles = {
 }
 
 
-let ele = document.querySelector('[class]')
-console.log("Element: ", ele)
+let ele = document.querySelectorAll('[class]')
+console.log("Elements: ", ele) // Elements:  NodeList(2) [h1.chai-border-10.chai-color-green, h1.heading]
+let ele2 = document.querySelectorAll('[class *= "chai-"]')
+console.log("Elements: ", ele2) // Elements:  NodeList [h1.chai-border-10.chai-color-green]
 
-const classArray = Array.from(ele.classList)
+const classArray = Array.from(ele2[0].classList)
 console.log("ClassArray: ", classArray) // ClassArray:  (2) ['chai-border-10', 'chai-color-green']
 
 let style = ""
@@ -37,6 +31,6 @@ classArray.forEach((cl) => {
     }
 })
 
-ele.style = style // <h1 class="chai-border-10 chai-color-green" style="border: 10px solid red; color: green;">Hello ji</h1>
+ele2[0].style = style // <h1 class="chai-border-10 chai-color-green" style="border: 10px solid red; color: green;">Hello ji</h1>
 
 
