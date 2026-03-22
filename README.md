@@ -1,247 +1,413 @@
 # ChaiTailwind ☕
 
-A lightweight utility-first CSS framework built with vanilla JavaScript. ChaiTailwind dynamically converts utility class names into inline styles at runtime, providing a Tailwind-like development experience without any build process.
+A lightweight, runtime CSS utility framework built with vanilla JavaScript. ChaiTailwind converts utility class names into inline styles dynamically in the browser - no build step required.
+
+## What It Does
+
+ChaiTailwind scans your HTML for classes starting with `chai-`, parses them, and applies corresponding inline styles. It's like Tailwind CSS, but works at runtime using JavaScript instead of build-time processing.
+
+**Example:**
+```html
+<div class="chai-p-20 chai-bg-indigo chai-color-white chai-rounded-lg">
+    Hello World
+</div>
+```
+
+Becomes:
+```html
+<div class="chai-p-20 chai-bg-indigo chai-color-white chai-rounded-lg" style="padding: 20px; background-color: #6366f1; color: #ffffff; border-radius: 8px;">
+    Hello World
+</div>
+```
 
 ## Features
 
-- **Zero dependencies** - Pure vanilla JavaScript
-- **No build step** - Works directly in the browser
-- **Utility-first** - Use descriptive class names instead of writing CSS
-- **Performance optimized** - Built-in caching system
-- **Flexible** - Supports custom values and predefined scales
+✅ **Zero dependencies** - Pure vanilla JavaScript
+✅ **No build step** - Works directly in the browser
+✅ **200+ utilities** - Comprehensive set of utility classes
+✅ **Auto-caching** - Computed styles are cached for performance
+✅ **Reactive** - Watches DOM for new elements and class changes
+✅ **Small footprint** - ~15KB unminified
 
-## How It Works
+## Quick Start
 
-ChaiTailwind scans your DOM for elements with classes starting with `chai-`, parses these class names, and applies the corresponding inline styles dynamically.
-
-For example:
-- `chai-p-8` → `padding: 8px`
-- `chai-bg-blue` → `background-color: #3b82f6`
-- `chai-text-center` → `text-align: center`
-
-## Usage
-
-1. Include the script in your HTML:
+1. **Include the script:**
 ```html
 <script src="main.js"></script>
 ```
 
-2. Use `chai-` prefixed classes in your HTML:
+2. **Use the utilities:**
 ```html
-<div class="chai-p-16 chai-bg-blue chai-color-white chai-rounded-lg">
-    Hello ChaiTailwind!
+<div class="chai-bg-blue chai-color-white chai-p-24 chai-rounded-xl">
+    <h2 class="chai-text-2xl chai-font-bold chai-mb-16">Card Title</h2>
+    <p class="chai-text-base">Card content goes here.</p>
 </div>
 ```
 
-## Available Utilities
+That's it! The framework automatically applies styles to any element with `chai-` classes.
 
-### Spacing
+## Complete Utility Reference
 
-#### Padding
-- `chai-p-{value}` - Padding all sides
-- `chai-pt-{value}` - Padding top
-- `chai-pr-{value}` - Padding right
-- `chai-pb-{value}` - Padding bottom
-- `chai-pl-{value}` - Padding left
-- `chai-px-{value}` - Padding horizontal (left + right)
-- `chai-py-{value}` - Padding vertical (top + bottom)
+### 🎨 Colors
 
-#### Margin
-- `chai-m-{value}` - Margin all sides
-- `chai-mt-{value}` - Margin top
-- `chai-mr-{value}` - Margin right
-- `chai-mb-{value}` - Margin bottom
-- `chai-ml-{value}` - Margin left
-- `chai-mx-{value}` - Margin horizontal (left + right)
-- `chai-my-{value}` - Margin vertical (top + bottom)
+**13 Built-in Colors:**
+`red` `blue` `green` `yellow` `purple` `pink` `indigo` `gray` `black` `white` `orange` `teal` `cyan`
 
-**Example:**
+- **Text:** `chai-color-{color}` or `chai-text-{color}`
+- **Background:** `chai-bg-{color}`
+- **Border:** `chai-border-{color}`
+
 ```html
-<div class="chai-p-8 chai-m-4">Padded and margined box</div>
+<div class="chai-bg-indigo chai-color-white">Indigo background, white text</div>
 ```
 
-### Colors
+### 📏 Spacing
 
-#### Text Color
-- `chai-color-{color}` - Text color
-- Available colors: `red`, `blue`, `green`, `yellow`, `purple`, `pink`, `indigo`, `gray`, `black`, `white`, `orange`, `teal`, `cyan`
+**Padding:**
+- `chai-p-{value}` - All sides
+- `chai-pt-{value}` `chai-pr-{value}` `chai-pb-{value}` `chai-pl-{value}` - Individual sides
+- `chai-px-{value}` - Horizontal (left + right)
+- `chai-py-{value}` - Vertical (top + bottom)
 
-#### Background Color
-- `chai-bg-{color}` - Background color
-- Same color palette as text colors
+**Margin:**
+- `chai-m-{value}` - All sides (use `auto` for centering)
+- `chai-mt-{value}` `chai-mr-{value}` `chai-mb-{value}` `chai-ml-{value}` - Individual sides
+- `chai-mx-{value}` - Horizontal (use `chai-mx-auto` to center)
+- `chai-my-{value}` - Vertical
 
-**Example:**
 ```html
-<div class="chai-bg-blue chai-color-white">Blue background with white text</div>
+<div class="chai-p-20 chai-mb-16">Padded box with bottom margin</div>
+<div class="chai-mx-auto chai-w-600">Centered box</div>
 ```
 
-### Typography
+### ✍️ Typography
 
-#### Font Size
-- `chai-text-xs` - 12px
-- `chai-text-sm` - 14px
-- `chai-text-base` - 16px
-- `chai-text-lg` - 18px
-- `chai-text-xl` - 20px
-- `chai-text-2xl` - 24px
-- `chai-text-3xl` - 30px
-- `chai-text-4xl` - 36px
-- `chai-text-5xl` - 48px
+**Font Size:**
+- `chai-text-xs` (12px) through `chai-text-5xl` (48px)
 
-#### Text Alignment
-- `chai-text-left` - Left aligned
-- `chai-text-center` - Center aligned
-- `chai-text-right` - Right aligned
-- `chai-text-justify` - Justified
+**Font Weight:**
+- `chai-font-thin` (100) through `chai-font-black` (900)
 
-#### Font Weight
-- `chai-font-thin` - 100
-- `chai-font-light` - 300
-- `chai-font-normal` - 400
-- `chai-font-medium` - 500
-- `chai-font-semibold` - 600
-- `chai-font-bold` - 700
-- `chai-font-extrabold` - 800
-- `chai-font-black` - 900
+**Text Alignment:**
+- `chai-text-left` `chai-text-center` `chai-text-right` `chai-text-justify`
 
-**Example:**
+**Text Transform:**
+- `chai-text-uppercase` `chai-text-lowercase` `chai-text-capitalize`
+
+**Text Decoration:**
+- `chai-text-underline` `chai-text-line-through` `chai-text-none`
+
+**Line Height:**
+- `chai-leading-none` `chai-leading-tight` `chai-leading-normal` `chai-leading-relaxed` `chai-leading-loose`
+
+**Letter Spacing:**
+- `chai-tracking-tighter` through `chai-tracking-widest`
+
 ```html
-<h1 class="chai-text-4xl chai-font-bold chai-text-center">Large Bold Centered Heading</h1>
+<h1 class="chai-text-4xl chai-font-bold chai-text-center chai-text-uppercase">
+    Bold Centered Heading
+</h1>
 ```
 
-### Borders
+### 📐 Borders
 
-#### Border Width
-- `chai-border-{value}` - Border width in pixels
+**Border Width:**
+- `chai-border-{value}` - All sides (e.g., `chai-border-2`)
+- `chai-border-t-{value}` `chai-border-r-{value}` `chai-border-b-{value}` `chai-border-l-{value}`
 
-#### Border Color
-- `chai-border-{color}` - Border color (uses same color palette)
+**Border Style:**
+- `chai-border-solid` `chai-border-dashed` `chai-border-dotted` `chai-border-double` `chai-border-none`
 
-#### Border Style
-- `chai-border-solid` - Solid border
-- `chai-border-dashed` - Dashed border
-- `chai-border-dotted` - Dotted border
-- `chai-border-double` - Double border
+**Border Radius:**
+- `chai-rounded-none` `chai-rounded-sm` `chai-rounded-md` `chai-rounded-lg` `chai-rounded-xl` `chai-rounded-2xl` `chai-rounded-3xl` `chai-rounded-full`
 
-#### Border Radius
-- `chai-rounded-sm` - 2px
-- `chai-rounded-md` - 6px
-- `chai-rounded-lg` - 8px
-- `chai-rounded-xl` - 12px
-- `chai-rounded-2xl` - 16px
-- `chai-rounded-full` - 9999px (perfect circle)
-- `chai-rounded-{value}` - Custom value in pixels
-
-**Example:**
 ```html
-<div class="chai-border-2 chai-border-blue chai-border-solid chai-rounded-lg">
-    Box with blue solid border and rounded corners
+<div class="chai-border-2 chai-border-solid chai-border-gray chai-rounded-lg">
+    Bordered box
 </div>
 ```
 
-### Layout
+### 📦 Layout & Display
 
-#### Display
-- `chai-flex` - Flexbox container
-- `chai-block` - Block element
-- `chai-inline` - Inline element
-- `chai-inline-block` - Inline-block element
-- `chai-hidden` - Hidden element
+**Display:**
+- `chai-flex` `chai-grid` `chai-block` `chai-inline` `chai-inline-block` `chai-inline-flex` `chai-hidden`
 
-#### Flexbox
-- `chai-justify-center` - Justify content center
-- `chai-justify-start` - Justify content start
-- `chai-justify-end` - Justify content end
-- `chai-justify-between` - Justify content space-between
-- `chai-items-center` - Align items center
-- `chai-items-start` - Align items start
-- `chai-items-end` - Align items end
-- `chai-gap-{value}` - Gap between flex items
+**Flexbox Direction:**
+- `chai-flex-row` `chai-flex-col` `chai-flex-row-reverse` `chai-flex-col-reverse`
 
-#### Width & Height
+**Flexbox Wrap:**
+- `chai-flex-wrap` `chai-flex-nowrap` `chai-flex-wrap-reverse`
+
+**Justify Content:**
+- `chai-justify-start` `chai-justify-center` `chai-justify-end` `chai-justify-between` `chai-justify-around` `chai-justify-evenly`
+
+**Align Items:**
+- `chai-items-start` `chai-items-center` `chai-items-end` `chai-items-stretch` `chai-items-baseline`
+
+**Flex Sizing:**
+- `chai-flex-1` `chai-flex-auto` `chai-flex-initial` `chai-flex-none`
+- `chai-grow-{value}` `chai-shrink-{value}`
+
+**Gap:**
+- `chai-gap-{value}` `chai-gap-x-{value}` `chai-gap-y-{value}`
+
+```html
+<div class="chai-flex chai-justify-between chai-items-center chai-gap-16">
+    <div>Item 1</div>
+    <div>Item 2</div>
+    <div>Item 3</div>
+</div>
+```
+
+### 🎯 Grid
+
+- `chai-grid-cols-{n}` - Grid with n columns
+- `chai-grid-rows-{n}` - Grid with n rows
+- `chai-col-span-{n}` - Span n columns
+- `chai-row-span-{n}` - Span n rows
+
+```html
+<div class="chai-grid chai-grid-cols-3 chai-gap-16">
+    <div>1</div>
+    <div class="chai-col-span-2">2 (spans 2 columns)</div>
+</div>
+```
+
+### 📐 Sizing
+
+**Width:**
 - `chai-w-{value}` - Width in pixels
-- `chai-w-full` - 100% width
-- `chai-w-screen` - 100vw width
-- `chai-w-auto` - Auto width
-- `chai-h-{value}` - Height in pixels
-- `chai-h-full` - 100% height
-- `chai-h-screen` - 100vh height
-- `chai-h-auto` - Auto height
+- `chai-w-full` `chai-w-screen` `chai-w-auto` `chai-w-min` `chai-w-max` `chai-w-fit`
 
-**Example:**
+**Height:**
+- `chai-h-{value}` - Height in pixels
+- `chai-h-full` `chai-h-screen` `chai-h-auto` `chai-h-min` `chai-h-max` `chai-h-fit`
+
+**Min/Max Width:**
+- `chai-min-w-{value}` - Minimum width
+- `chai-max-w-xs` through `chai-max-w-7xl` - Responsive max widths
+- `chai-max-w-full` `chai-max-w-min` `chai-max-w-max` `chai-max-w-fit`
+
+**Min/Max Height:**
+- `chai-min-h-{value}` `chai-max-h-{value}`
+
 ```html
-<div class="chai-flex chai-justify-center chai-items-center chai-gap-8">
-    <div class="chai-w-100 chai-h-100 chai-bg-red"></div>
-    <div class="chai-w-100 chai-h-100 chai-bg-blue"></div>
+<div class="chai-w-full chai-max-w-2xl chai-mx-auto">
+    Responsive centered container
 </div>
 ```
 
-## Color Palette
+### 📍 Position
 
-The following colors are available throughout the framework:
+**Position Type:**
+- `chai-relative` `chai-absolute` `chai-fixed` `chai-sticky` `chai-static`
 
-| Color    | Hex Code  |
-|----------|-----------|
-| red      | #ef4444   |
-| blue     | #3b82f6   |
-| green    | #10b981   |
-| yellow   | #f59e0b   |
-| purple   | #a855f7   |
-| pink     | #ec4899   |
-| indigo   | #6366f1   |
-| gray     | #6b7280   |
-| black    | #000000   |
-| white    | #ffffff   |
-| orange   | #f97316   |
-| teal     | #14b8a6   |
-| cyan     | #06b6d4   |
+**Position Offsets:**
+- `chai-top-{value}` `chai-right-{value}` `chai-bottom-{value}` `chai-left-{value}`
+- `chai-inset-{value}` - All sides
+- Use `auto` for auto positioning
 
-## Performance
+**Z-Index:**
+- `chai-z-{value}`
 
-ChaiTailwind includes several performance optimizations:
+```html
+<div class="chai-relative chai-h-200">
+    <div class="chai-absolute chai-top-10 chai-right-10 chai-z-10">
+        Positioned element
+    </div>
+</div>
+```
 
-- **Caching** - Computed styles are cached using a Map to avoid reprocessing
-- **One-time processing** - Elements are marked with `data-chai-done` to prevent duplicate processing
-- **Efficient selectors** - Uses attribute selectors to quickly find elements with chai- classes
+### ✨ Effects
 
-## Examples
+**Opacity:**
+- `chai-opacity-{0-100}` - e.g., `chai-opacity-50` = 50% opacity
+
+**Shadow:**
+- `chai-shadow-sm` `chai-shadow-md` `chai-shadow-lg` `chai-shadow-xl` `chai-shadow-2xl` `chai-shadow-none`
+
+```html
+<div class="chai-shadow-lg chai-opacity-90">
+    Box with shadow and slight transparency
+</div>
+```
+
+### 📜 Overflow
+
+- `chai-overflow-auto` `chai-overflow-hidden` `chai-overflow-visible` `chai-overflow-scroll`
+- `chai-overflow-x-auto` `chai-overflow-x-hidden` `chai-overflow-y-auto` `chai-overflow-y-hidden`
+
+### 🖱️ Interactions
+
+**Cursor:**
+- `chai-cursor-pointer` `chai-cursor-default` `chai-cursor-not-allowed` `chai-cursor-wait` `chai-cursor-text` `chai-cursor-move`
+
+**Pointer Events:**
+- `chai-pointer-events-none` `chai-pointer-events-auto`
+
+**User Select:**
+- `chai-select-none` `chai-select-text` `chai-select-all` `chai-select-auto`
+
+### 🎬 Transitions & Transforms
+
+**Transitions:**
+- `chai-transition-none` `chai-transition-all` `chai-transition-colors` `chai-transition-opacity` `chai-transition-shadow` `chai-transition-transform`
+- `chai-duration-{ms}` - Duration in milliseconds
+
+**Transforms:**
+- `chai-rotate-{deg}` - Rotate in degrees
+- `chai-scale-{percent}` - Scale (e.g., `chai-scale-110` = 1.1x)
+- `chai-scale-x-{percent}` `chai-scale-y-{percent}`
+- `chai-translate-x-{px}` `chai-translate-y-{px}`
+
+### 🖼️ Background
+
+- `chai-bg-cover` `chai-bg-contain`
+- `chai-bg-center` `chai-bg-top` `chai-bg-bottom` `chai-bg-left` `chai-bg-right`
+- `chai-bg-no-repeat` `chai-bg-repeat`
+
+### 📝 Text Utilities
+
+**Whitespace:**
+- `chai-whitespace-normal` `chai-whitespace-nowrap` `chai-whitespace-pre` `chai-whitespace-pre-wrap`
+
+**Word Break:**
+- `chai-break-normal` `chai-break-words` `chai-break-all`
+
+**Vertical Align:**
+- `chai-align-baseline` `chai-align-top` `chai-align-middle` `chai-align-bottom`
+
+**List Style:**
+- `chai-list-none` `chai-list-disc` `chai-list-decimal`
+
+### 🖼️ Object Fit
+
+- `chai-object-cover` `chai-object-contain` `chai-object-fill` `chai-object-none`
+
+## Real-World Examples
+
+### Button
+```html
+<button class="chai-bg-blue chai-color-white chai-px-24 chai-py-12 chai-rounded-md chai-font-semibold chai-cursor-pointer chai-transition-all" style="border: none;">
+    Click Me
+</button>
+```
 
 ### Card Component
 ```html
-<div class="chai-border-2 chai-border-blue chai-rounded-lg chai-p-16 chai-bg-blue">
-    <h3 class="chai-text-xl chai-font-bold chai-color-white chai-mb-4">Card Title</h3>
-    <p class="chai-color-white chai-mb-8">Card description text goes here.</p>
-    <div class="chai-inline-block chai-bg-white chai-color-blue chai-px-16 chai-py-8 chai-rounded-md chai-font-bold">
-        Button
+<div class="chai-bg-white chai-p-24 chai-rounded-xl chai-shadow-lg">
+    <h3 class="chai-text-xl chai-font-bold chai-mb-12">Card Title</h3>
+    <p class="chai-text-base chai-color-gray chai-mb-16">Card description text.</p>
+    <button class="chai-bg-indigo chai-color-white chai-px-16 chai-py-8 chai-rounded-md">
+        Action
+    </button>
+</div>
+```
+
+### Responsive Container
+```html
+<div class="chai-max-w-4xl chai-mx-auto chai-px-32 chai-py-64">
+    <h1 class="chai-text-4xl chai-font-bold chai-mb-24">Page Title</h1>
+    <p class="chai-text-lg chai-color-gray">Content goes here...</p>
+</div>
+```
+
+### Flex Layout
+```html
+<div class="chai-flex chai-flex-col chai-gap-16">
+    <div class="chai-flex chai-justify-between chai-items-center">
+        <span>Label</span>
+        <span class="chai-font-bold">Value</span>
     </div>
 </div>
 ```
 
-### Centered Hero Section
-```html
-<div class="chai-flex chai-justify-center chai-items-center chai-h-screen chai-bg-blue">
-    <div class="chai-text-center">
-        <h1 class="chai-text-5xl chai-font-bold chai-color-white chai-mb-8">Welcome</h1>
-        <p class="chai-text-xl chai-color-white">Build amazing things with ChaiTailwind</p>
-    </div>
-</div>
-```
+## Color Palette Reference
+
+| Color    | Hex     | Color    | Hex     |
+|----------|---------|----------|---------|
+| red      | #ef4444 | orange   | #f97316 |
+| blue     | #3b82f6 | teal     | #14b8a6 |
+| green    | #10b981 | cyan     | #06b6d4 |
+| yellow   | #f59e0b | gray     | #6b7280 |
+| purple   | #a855f7 | black    | #000000 |
+| pink     | #ec4899 | white    | #ffffff |
+| indigo   | #6366f1 |          |         |
+
+## How It Works Internally
+
+1. **Initialization:** On page load, scans DOM for elements with `chai-` classes
+2. **Parsing:** Extracts class names and maps them to CSS properties
+3. **Caching:** Stores computed styles in a Map for reuse
+4. **Application:** Applies styles as inline CSS
+5. **Observation:** Watches DOM for new elements or class changes using MutationObserver
+
+## Limitations
+
+⚠️ **This is a runtime framework**, which means:
+- Styles are applied as inline CSS (lower specificity than stylesheets)
+- All styles are computed at runtime (slight performance cost)
+- No PurgeCSS-like optimization (but caching helps)
+- Not suitable for very large-scale applications
+- No pseudo-classes or media queries support (use regular CSS for these)
+
+## Performance
+
+- **Caching:** Computed styles are cached in a Map
+- **One-time processing:** Elements are marked to prevent reprocessing
+- **Mutation Observer:** Efficiently watches for DOM changes
+- **Fast selectors:** Uses attribute selectors for quick element finding
+
+For small to medium projects, performance is excellent. For large applications, consider a build-time solution like Tailwind CSS.
+
+## Use Cases
+
+✅ **Good for:**
+- Prototypes and MVPs
+- Small to medium projects
+- Projects without build tooling
+- Learning utility-first CSS
+- Quick demos and experiments
+
+❌ **Not ideal for:**
+- Very large production applications
+- Projects requiring pseudo-classes/media queries in utility form
+- Performance-critical applications with thousands of elements
 
 ## Browser Support
 
-ChaiTailwind works in all modern browsers that support:
-- ES6+ JavaScript
+Works in all modern browsers supporting:
+- ES6+ JavaScript (Map, arrow functions, destructuring)
+- MutationObserver API
 - CSS inline styles
-- DOM manipulation APIs
 
-## License
+## Project Structure
 
-MIT License - Feel free to use in your projects!
+```
+Chai-Tailwind/
+├── main.js          # Core framework (~15KB)
+├── index.html       # Professional demo landing page
+└── README.md        # This file
+```
 
 ## Contributing
 
-Contributions are welcome! Feel free to submit issues or pull requests.
+This is a learning project and experiment in utility-first CSS. Feel free to:
+- Open issues for bugs
+- Suggest new utilities
+- Submit pull requests
+- Fork and modify for your needs
+
+## License
+
+MIT - Use freely in your projects!
+
+## Acknowledgments
+
+Inspired by Tailwind CSS, but built as a runtime-only alternative for projects without build tooling.
 
 ---
 
-Built with ☕ and JavaScript
+**Built with ☕ and vanilla JavaScript**
+
+*ChaiTailwind: Utility-first CSS that works in the browser, no build required.*
