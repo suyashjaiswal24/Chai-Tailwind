@@ -500,7 +500,14 @@ MIT - Use freely in your projects!
 
 ## Acknowledgments
 
-Inspired by Tailwind CSS, but built as a runtime-only alternative for projects without build tooling.
+This project was built as an assignment from **[Chai aur Code](https://chaicode.com/)** 🙏
+
+**Special Thanks to:**
+- **Hitesh Choudhary & Piyush Garg** - For the amazing teaching and mentorship at WebDev Cohort 2026
+- **Chai aur Code Community** - For the inspiration and learning environment
+- **Tailwind CSS** - For pioneering the utility-first CSS approach that inspired this project
+
+Built as a learning project to explore runtime CSS frameworks and vanilla JavaScript development.
 
 ---
 
