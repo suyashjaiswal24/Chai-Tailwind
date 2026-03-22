@@ -29,13 +29,44 @@ Becomes:
 ✅ **Reactive** - Watches DOM for new elements and class changes
 ✅ **Small footprint** - ~15KB unminified
 
+## Installation
+
+### NPM
+
+```bash
+npm install chaitailwind
+```
+
+### CDN
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/chaitailwind@1/dist/chaitailwind.min.js"></script>
+```
+
+### Manual Download
+
+Download the files and include them in order:
+```html
+<script src="path/to/styles.js"></script>
+<script src="path/to/core.js"></script>
+<script src="path/to/main.js"></script>
+```
+
 ## Quick Start
 
-1. **Include the scripts in order:**
+1. **Include ChaiTailwind:**
+
+**Via NPM:**
+```bash
+npm install chaitailwind
+```
 ```html
-<script src="styles.js"></script>
-<script src="core.js"></script>
-<script src="main.js"></script>
+<script src="node_modules/chaitailwind/dist/chaitailwind.min.js"></script>
+```
+
+**Via CDN:**
+```html
+<script src="https://cdn.jsdelivr.net/npm/chaitailwind@1/dist/chaitailwind.min.js"></script>
 ```
 
 2. **Use the utilities:**
@@ -403,6 +434,26 @@ This is a learning project and experiment in utility-first CSS. Feel free to:
 - Suggest new utilities
 - Submit pull requests
 - Fork and modify for your needs
+
+## Publishing to NPM
+
+If you want to publish updates:
+
+```bash
+# Build the distribution files
+npm run build
+
+# Update version in package.json (follows semver)
+npm version patch  # for bug fixes
+npm version minor  # for new features
+npm version major  # for breaking changes
+
+# Login to npm (first time only)
+npm login
+
+# Publish to npm
+npm publish
+```
 
 ## License
 

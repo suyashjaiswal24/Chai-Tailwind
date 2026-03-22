@@ -1,0 +1,30 @@
+# Development files
+index.html
+build.js
+.git
+.gitignore
+.vscode
+.DS_Store
+
+# Node modules
+node_modules/
+
+# Test files
+test/
+tests/
+*.test.js
+*.spec.js
+
+# Editor files
+*.swp
+*.swo
+*~
+.idea/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# OS files
+Thumbs.db

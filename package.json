@@ -1,0 +1,48 @@
+{
+  "name": "chaitailwind",
+  "version": "1.0.0",
+  "description": "A lightweight, runtime CSS utility framework inspired by the warmth of chai. 200+ utilities, zero build step, pure vanilla JavaScript.",
+  "main": "dist/chaitailwind.min.js",
+  "module": "main.js",
+  "files": [
+    "dist",
+    "styles.js",
+    "core.js",
+    "main.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "node build.js",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/suyashjaiswal24/Chai-Tailwind.git"
+  },
+  "keywords": [
+    "css",
+    "utility",
+    "framework",
+    "runtime",
+    "tailwind",
+    "chai",
+    "vanilla-js",
+    "no-build",
+    "utility-first",
+    "css-framework",
+    "styling"
+  ],
+  "author": "Suyash Jaiswal <simple.sjaiswal@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/suyashjaiswal24/Chai-Tailwind/issues"
+  },
+  "homepage": "https://github.com/suyashjaiswal24/Chai-Tailwind/blob/main/README.md",
+  "devDependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
