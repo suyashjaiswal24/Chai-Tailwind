@@ -31,8 +31,10 @@ Becomes:
 
 ## Quick Start
 
-1. **Include the script:**
+1. **Include the scripts in order:**
 ```html
+<script src="styles.js"></script>
+<script src="core.js"></script>
 <script src="main.js"></script>
 ```
 
@@ -385,10 +387,14 @@ Works in all modern browsers supporting:
 
 ```
 Chai-Tailwind/
-├── main.js          # Core framework (~15KB)
+├── styles.js        # Style definitions and utilities (~15KB)
+├── core.js          # Core logic: parser, cache, observer (~3.7KB)
+├── main.js          # Entry point - initializes the framework
 ├── index.html       # Professional demo landing page
 └── README.md        # This file
 ```
+
+**Load Order:** scripts must be loaded in order: `styles.js` → `core.js` → `main.js`
 
 ## Contributing
 
