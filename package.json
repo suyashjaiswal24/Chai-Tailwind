@@ -1,6 +1,6 @@
 {
   "name": "@suyashjaiswal/chaitailwind",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A lightweight, runtime CSS utility framework inspired by the warmth of chai. 200+ utilities, zero build step, pure vanilla JavaScript.",
   "main": "dist/chaitailwind.min.js",
   "module": "main.js",
