@@ -1,6 +1,11 @@
 # ChaiTailwind ☕
 
+[![npm version](https://img.shields.io/npm/v/@suyashjaiswal/chaitailwind.svg)](https://www.npmjs.com/package/@suyashjaiswal/chaitailwind)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 A lightweight, runtime CSS utility framework built with vanilla JavaScript. ChaiTailwind converts utility class names into inline styles dynamically in the browser - no build step required.
+
+**[🚀 Live Demo](https://chai-tailwind-eta.vercel.app/)** | **[📦 NPM Package](https://www.npmjs.com/package/@suyashjaiswal/chaitailwind)** | **[📖 Documentation](#complete-utility-reference)**
 
 ## What It Does
 
@@ -95,6 +100,23 @@ npm install @suyashjaiswal/chaitailwind
 ```
 
 That's it! The framework automatically applies styles to any element with `chai-` classes.
+
+## 🎨 Live Demo
+
+See ChaiTailwind in action with a beautiful, chai-themed landing page:
+
+**👉 [https://chai-tailwind-eta.vercel.app/](https://chai-tailwind-eta.vercel.app/)**
+
+The demo showcases:
+- ☕ Warm parchment color palette inspired by chai
+- 🎨 Glassmorphic navigation with blur effects
+- ⚡ Animated fade-in effects on scroll
+- 🎯 200+ utilities in use across the entire page
+- 📱 Fully responsive design
+- 🔥 Steam animation effects
+- ✨ Hover interactions and card lift effects
+
+The entire landing page is built using only ChaiTailwind utilities - no custom CSS! View the source code in [index.html](index.html) to see how it's done.
 
 ## Complete Utility Reference
 

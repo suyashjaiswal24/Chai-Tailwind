@@ -38,7 +38,7 @@
   "bugs": {
     "url": "https://github.com/suyashjaiswal24/Chai-Tailwind/issues"
   },
-  "homepage": "https://github.com/suyashjaiswal24/Chai-Tailwind/blob/main/README.md",
+  "homepage": "https://chai-tailwind-eta.vercel.app",
   "devDependencies": {},
   "browserslist": [
     "> 1%",
