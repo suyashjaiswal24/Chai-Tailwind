@@ -5,253 +5,467 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ChaiTailwind ☕ - Utility-First CSS with a Warm Touch</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
+            background: #fdf6ec;
+            color: #1c1007;
+            position: relative;
         }
+
+        /* Grain texture overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        .display-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .mono-font {
+            font-family: 'DM Mono', monospace;
+        }
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        /* Glassmorphic Navigation */
+        .glass-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(253, 246, 236, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(28, 16, 7, 0.1);
+        }
+
+        /* Decorative rings */
+        .ring-decoration {
+            position: absolute;
+            border: 2px solid rgba(249, 115, 22, 0.15);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Badge with orange dot */
+        .badge-dot::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #f97316;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        /* Card hover effects */
+        .hover-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15), 0 8px 16px rgba(28, 16, 7, 0.1);
+        }
+
+        /* Fade-in animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade {
+            animation: fadeInUp 0.8s ease forwards;
+            opacity: 0;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
+        .delay-6 { animation-delay: 0.6s; }
+
+        /* Steam animation */
+        @keyframes steam {
+            0% {
+                opacity: 0;
+                transform: translateY(0) scale(0.8);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1.2);
+            }
+        }
+
+        .steam {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, rgba(249, 115, 22, 0.4), transparent);
+            border-radius: 50%;
+            filter: blur(10px);
+            animation: steam 3s ease-in-out infinite;
+        }
+
+        .steam:nth-child(2) { animation-delay: 1s; left: 20px; }
+        .steam:nth-child(3) { animation-delay: 2s; left: -20px; }
+
+        /* Spice accent color */
+        .spice-orange {
+            color: #f97316;
+        }
+
+        .bg-spice-orange {
+            background-color: #f97316;
+        }
+
+        /* Parchment colors */
+        .bg-parchment {
+            background-color: #fdf6ec;
+        }
+
+        .bg-parchment-light {
+            background-color: #fffaf3;
+        }
+
+        .text-ink {
+            color: #1c1007;
+        }
+
+        .border-ink-light {
+            border-color: rgba(28, 16, 7, 0.15);
         }
     </style>
 </head>
 
 <body>
-    <!-- Navigation Bar -->
-    <nav class="chai-bg-white chai-py-16 chai-px-32" style="box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <div class="container chai-flex chai-justify-between chai-items-center">
-            <div class="chai-text-2xl chai-font-bold chai-text-indigo">ChaiTailwind ☕</div>
+    <!-- Glassmorphic Navigation -->
+    <nav class="glass-nav chai-py-20 chai-px-32">
+        <div class="container chai-flex chai-justify-between chai-items-center animate-fade">
+            <div class="chai-text-2xl chai-font-bold display-font spice-orange">ChaiTailwind ☕</div>
             <div class="chai-flex chai-gap-32">
-                <a href="#features" class="chai-text-base chai-color-gray chai-font-medium" style="text-decoration: none;">Features</a>
-                <a href="#pricing" class="chai-text-base chai-color-gray chai-font-medium" style="text-decoration: none;">Pricing</a>
-                <a href="#docs" class="chai-text-base chai-color-gray chai-font-medium" style="text-decoration: none;">Docs</a>
-                <a href="#about" class="chai-text-base chai-color-gray chai-font-medium" style="text-decoration: none;">About</a>
+                <a href="#features" class="chai-text-base chai-font-medium text-ink" style="text-decoration: none; transition: color 0.2s;">Features</a>
+                <a href="#utilities" class="chai-text-base chai-font-medium text-ink" style="text-decoration: none; transition: color 0.2s;">Utilities</a>
+                <a href="#pricing" class="chai-text-base chai-font-medium text-ink" style="text-decoration: none; transition: color 0.2s;">Pricing</a>
+                <a href="#docs" class="chai-text-base chai-font-medium text-ink" style="text-decoration: none; transition: color 0.2s;">Docs</a>
             </div>
             <div class="chai-flex chai-gap-12">
-                <button class="chai-px-20 chai-py-8 chai-text-base chai-font-medium chai-color-indigo" style="background: transparent; border: none; cursor: pointer;">Sign In</button>
-                <button class="chai-bg-indigo chai-color-white chai-px-20 chai-py-8 chai-rounded-md chai-text-base chai-font-semibold" style="border: none; cursor: pointer;">Get Started</button>
+                <button class="chai-px-20 chai-py-10 chai-text-base chai-font-medium spice-orange" style="background: transparent; border: 2px solid #f97316; border-radius: 8px; cursor: pointer; transition: all 0.3s;">Sign In</button>
+                <button class="bg-spice-orange chai-color-white chai-px-20 chai-py-10 chai-rounded-md chai-text-base chai-font-semibold" style="border: none; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);">Get Started</button>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="chai-bg-white chai-py-80 chai-px-32">
-        <div class="container chai-text-center">
-            <div class="chai-inline-block chai-bg-purple chai-color-white chai-px-16 chai-py-6 chai-rounded-full chai-text-sm chai-font-semibold chai-mb-24" style="opacity: 0.9;">NEW: Version 2.0 Released</div>
-            <h1 class="chai-text-5xl chai-font-extrabold chai-color-black chai-mb-20" style="letter-spacing: -0.02em;">Build Modern Websites<br>with Utility-First CSS</h1>
-            <p class="chai-text-xl chai-color-gray chai-mb-32" style="max-width: 600px; margin-left: auto; margin-right: auto;">ChaiTailwind is a lightweight, blazing-fast CSS framework that helps you build beautiful interfaces without writing custom CSS.</p>
-            <div class="chai-flex chai-justify-center chai-gap-16">
-                <button class="chai-bg-indigo chai-color-white chai-px-32 chai-py-16 chai-rounded-lg chai-text-lg chai-font-bold" style="border: none; cursor: pointer; box-shadow: 0 4px 6px rgba(99, 102, 241, 0.3);">Start Building Free</button>
-                <button class="chai-bg-white chai-color-gray chai-px-32 chai-py-16 chai-rounded-lg chai-text-lg chai-font-semibold" style="border: 2px solid #e5e7eb; cursor: pointer;">View Docs →</button>
+    <section class="bg-parchment chai-px-32" style="padding-top: 160px; padding-bottom: 120px; position: relative; overflow: hidden;">
+        <!-- Decorative rings -->
+        <div class="ring-decoration" style="width: 400px; height: 400px; top: -100px; right: -100px;"></div>
+        <div class="ring-decoration" style="width: 600px; height: 600px; bottom: -200px; left: -200px;"></div>
+
+        <div class="container chai-text-center" style="position: relative; z-index: 1;">
+            <div class="animate-fade delay-1">
+                <div class="chai-inline-block bg-spice-orange chai-color-white chai-px-16 chai-py-6 chai-rounded-full chai-text-sm chai-font-semibold chai-mb-24 badge-dot" style="opacity: 0.95;">Version 2.0 • Runtime CSS Magic</div>
             </div>
-            <div class="chai-mt-48 chai-flex chai-justify-center chai-gap-32">
+
+            <h1 class="display-font chai-text-5xl chai-font-extrabold text-ink chai-mb-24 animate-fade delay-2" style="font-size: 64px; line-height: 1.1; letter-spacing: -0.02em;">
+                Brew Beautiful Interfaces<br>
+                <span class="spice-orange">One Utility at a Time</span>
+            </h1>
+
+            <p class="chai-text-xl text-ink chai-mb-40 animate-fade delay-3" style="max-width: 700px; margin-left: auto; margin-right: auto; opacity: 0.8; font-weight: 400;">
+                A lightweight, runtime CSS framework inspired by the warmth of chai.
+                <span class="mono-font spice-orange">200+ utilities</span>, zero build step, pure vanilla JavaScript.
+            </p>
+
+            <div class="chai-flex chai-justify-center chai-gap-16 chai-mb-64 animate-fade delay-4">
+                <button class="bg-spice-orange chai-color-white chai-px-40 chai-py-16 chai-rounded-lg chai-text-lg chai-font-bold" style="border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35); transition: all 0.3s;">
+                    Start Brewing Free
+                </button>
+                <button class="bg-parchment-light text-ink chai-px-40 chai-py-16 chai-rounded-lg chai-text-lg chai-font-semibold" style="border: 2px solid rgba(28, 16, 7, 0.15); cursor: pointer; transition: all 0.3s;">
+                    <span class="mono-font">View Docs →</span>
+                </button>
+            </div>
+
+            <!-- Code Preview Card with Steam -->
+            <div class="chai-relative chai-inline-block animate-fade delay-5" style="position: relative;">
+                <div class="steam"></div>
+                <div class="steam"></div>
+                <div class="steam"></div>
+
+                <div class="bg-parchment-light chai-p-32 chai-rounded-2xl" style="box-shadow: 0 20px 60px rgba(28, 16, 7, 0.12); border: 1px solid rgba(28, 16, 7, 0.08); max-width: 700px;">
+                    <!-- Browser chrome -->
+                    <div class="chai-flex chai-items-center chai-gap-8 chai-mb-20 chai-pb-20" style="border-bottom: 1px solid rgba(28, 16, 7, 0.08);">
+                        <div style="width: 12px; height: 12px; background: #f97316; border-radius: 50%;"></div>
+                        <div style="width: 12px; height: 12px; background: #f59e0b; border-radius: 50%;"></div>
+                        <div style="width: 12px; height: 12px; background: #10b981; border-radius: 50%;"></div>
+                        <div class="chai-text-sm mono-font chai-ml-16" style="opacity: 0.5;">index.html</div>
+                    </div>
+
+                    <pre class="mono-font chai-text-left" style="font-size: 14px; line-height: 1.8; overflow-x: auto;"><code><span style="opacity: 0.5;">&lt;</span><span style="color: #f97316;">div</span> <span style="color: #0891b2;">class</span>=<span style="color: #10b981;">"chai-bg-orange chai-color-white
+     chai-p-24 chai-rounded-xl chai-shadow-lg"</span><span style="opacity: 0.5;">&gt;</span>
+  <span style="opacity: 0.5;">&lt;</span><span style="color: #f97316;">h2</span> <span style="color: #0891b2;">class</span>=<span style="color: #10b981;">"chai-text-2xl chai-font-bold"</span><span style="opacity: 0.5;">&gt;</span>
+    ☕ Chai Card
+  <span style="opacity: 0.5;">&lt;/</span><span style="color: #f97316;">h2</span><span style="opacity: 0.5;">&gt;</span>
+<span style="opacity: 0.5;">&lt;/</span><span style="color: #f97316;">div</span><span style="opacity: 0.5;">&gt;</span></code></pre>
+                </div>
+            </div>
+
+            <!-- Stats -->
+            <div class="chai-mt-80 chai-flex chai-justify-center chai-gap-48 animate-fade delay-6">
                 <div class="chai-text-center">
-                    <div class="chai-text-3xl chai-font-bold chai-text-indigo">50K+</div>
-                    <div class="chai-text-sm chai-color-gray chai-mt-4">Developers</div>
+                    <div class="display-font chai-text-4xl chai-font-bold spice-orange">200+</div>
+                    <div class="chai-text-sm text-ink chai-mt-4" style="opacity: 0.7;">Utilities</div>
                 </div>
                 <div class="chai-text-center">
-                    <div class="chai-text-3xl chai-font-bold chai-text-indigo">100K+</div>
-                    <div class="chai-text-sm chai-color-gray chai-mt-4">Projects</div>
+                    <div class="display-font chai-text-4xl chai-font-bold spice-orange">~15KB</div>
+                    <div class="chai-text-sm text-ink chai-mt-4" style="opacity: 0.7;">Total Size</div>
                 </div>
                 <div class="chai-text-center">
-                    <div class="chai-text-3xl chai-font-bold chai-text-indigo">4.9★</div>
-                    <div class="chai-text-sm chai-color-gray chai-mt-4">Rating</div>
+                    <div class="display-font chai-text-4xl chai-font-bold spice-orange">0</div>
+                    <div class="chai-text-sm text-ink chai-mt-4" style="opacity: 0.7;">Build Step</div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section id="features" class="chai-py-80 chai-px-32" style="background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);">
+    <section id="features" class="chai-py-100 chai-px-32" style="background: linear-gradient(180deg, #fdf6ec 0%, #fffaf3 100%);">
         <div class="container">
-            <div class="chai-text-center chai-mb-64">
-                <h2 class="chai-text-4xl chai-font-extrabold chai-color-black chai-mb-16">Why Choose ChaiTailwind?</h2>
-                <p class="chai-text-lg chai-color-gray" style="max-width: 600px; margin: 0 auto;">Everything you need to build modern, responsive websites with incredible speed.</p>
+            <div class="chai-text-center chai-mb-80">
+                <div class="chai-inline-block chai-mb-16">
+                    <span class="chai-text-sm chai-font-semibold spice-orange chai-px-16 chai-py-6 chai-rounded-full badge-dot" style="background: rgba(249, 115, 22, 0.1);">Features</span>
+                </div>
+                <h2 class="display-font chai-text-5xl chai-font-bold text-ink chai-mb-20">Why Choose ChaiTailwind?</h2>
+                <p class="chai-text-xl text-ink" style="max-width: 600px; margin: 0 auto; opacity: 0.7;">Everything you need to brew modern, responsive websites with incredible speed.</p>
             </div>
 
             <div class="chai-flex chai-gap-32 chai-mb-32">
                 <!-- Feature 1 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-blue chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">⚡</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #f97316, #fb923c);">
+                        <span class="chai-text-4xl">⚡</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-blue chai-mb-12">Lightning Fast</h3>
-                    <p class="chai-text-base chai-color-gray">Built-in caching system ensures your styles are applied instantly without re-computation.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Lightning Fast</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">Built-in caching system ensures your styles are applied instantly without re-computation.</p>
                 </div>
 
                 <!-- Feature 2 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-green chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">🎨</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #10b981, #34d399);">
+                        <span class="chai-text-4xl">🎨</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-green chai-mb-12">Beautiful Design</h3>
-                    <p class="chai-text-base chai-color-gray">Carefully crafted color palette and spacing system for professional-looking designs.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Beautiful Design</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">Carefully crafted color palette and spacing system for professional designs.</p>
                 </div>
 
                 <!-- Feature 3 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-purple chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">🚀</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #a855f7, #c084fc);">
+                        <span class="chai-text-4xl">🚀</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-purple chai-mb-12">Developer First</h3>
-                    <p class="chai-text-base chai-color-gray">Intuitive naming convention makes it easy to learn and use without documentation.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Zero Build</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">No webpack, no postcss. Just include three scripts and start building.</p>
                 </div>
             </div>
 
             <div class="chai-flex chai-gap-32">
                 <!-- Feature 4 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-orange chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">📦</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #06b6d4, #22d3ee);">
+                        <span class="chai-text-4xl">📦</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-orange chai-mb-12">Tiny Bundle</h3>
-                    <p class="chai-text-base chai-color-gray">Less than 5KB minified. No build step required. Just include and start coding.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Tiny Bundle</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">~15KB unminified. Three clean files. Pure vanilla JavaScript.</p>
                 </div>
 
                 <!-- Feature 5 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-teal chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">🔧</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #14b8a6, #2dd4bf);">
+                        <span class="chai-text-4xl">🔧</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-teal chai-mb-12">Fully Customizable</h3>
-                    <p class="chai-text-base chai-color-gray">Extend or modify any utility class to match your brand and design requirements.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Customizable</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">Extend or modify any utility to match your brand and design requirements.</p>
                 </div>
 
                 <!-- Feature 6 -->
-                <div class="chai-bg-white chai-p-32 chai-rounded-xl" style="flex: 1; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                    <div class="chai-bg-pink chai-w-64 chai-h-64 chai-rounded-lg chai-mb-20 chai-flex chai-items-center chai-justify-center">
-                        <span class="chai-text-4xl chai-color-white chai-font-bold">💎</span>
+                <div class="hover-card bg-parchment-light chai-p-40 chai-rounded-2xl" style="flex: 1; border: 1px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-w-64 chai-h-64 chai-rounded-lg chai-mb-24 chai-flex chai-items-center chai-justify-center" style="background: linear-gradient(135deg, #ec4899, #f472b6);">
+                        <span class="chai-text-4xl">☕</span>
                     </div>
-                    <h3 class="chai-text-2xl chai-font-bold chai-text-pink chai-mb-12">Production Ready</h3>
-                    <p class="chai-text-base chai-color-gray">Battle-tested in thousands of projects. Ready to scale from prototype to production.</p>
+                    <h3 class="display-font chai-text-3xl chai-font-bold text-ink chai-mb-12">Chai-Powered</h3>
+                    <p class="chai-text-base text-ink" style="opacity: 0.7; line-height: 1.7;">Built with the warmth and comfort of your favorite chai break.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="chai-bg-white chai-py-80 chai-px-32">
+    <section id="pricing" class="bg-parchment chai-py-100 chai-px-32">
         <div class="container">
-            <div class="chai-text-center chai-mb-64">
-                <h2 class="chai-text-4xl chai-font-extrabold chai-color-black chai-mb-16">Simple, Transparent Pricing</h2>
-                <p class="chai-text-lg chai-color-gray">Choose the plan that's right for you. Always free for personal projects.</p>
+            <div class="chai-text-center chai-mb-80">
+                <div class="chai-inline-block chai-mb-16">
+                    <span class="chai-text-sm chai-font-semibold spice-orange chai-px-16 chai-py-6 chai-rounded-full badge-dot" style="background: rgba(249, 115, 22, 0.1);">Pricing</span>
+                </div>
+                <h2 class="display-font chai-text-5xl chai-font-bold text-ink chai-mb-20">Simple, Honest Pricing</h2>
+                <p class="chai-text-xl text-ink" style="opacity: 0.7;">Always free for personal projects. Scale as you grow.</p>
             </div>
 
             <div class="chai-flex chai-gap-32 chai-justify-center">
                 <!-- Free Plan -->
-                <div class="chai-bg-white chai-p-40 chai-rounded-2xl" style="flex: 0 0 320px; border: 2px solid #e5e7eb;">
-                    <div class="chai-text-lg chai-font-semibold chai-color-gray chai-mb-8">Starter</div>
-                    <div class="chai-mb-24">
-                        <span class="chai-text-5xl chai-font-extrabold chai-color-black">$0</span>
-                        <span class="chai-text-lg chai-color-gray">/month</span>
+                <div class="hover-card bg-parchment-light chai-p-48 chai-rounded-2xl" style="flex: 0 0 340px; border: 2px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-text-lg chai-font-semibold text-ink chai-mb-8" style="opacity: 0.7;">Starter</div>
+                    <div class="chai-mb-32">
+                        <span class="display-font chai-text-5xl chai-font-bold text-ink">$0</span>
+                        <span class="chai-text-lg text-ink" style="opacity: 0.5;">/forever</span>
                     </div>
                     <ul style="list-style: none; padding: 0;">
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ All core utilities</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Unlimited projects</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Community support</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Basic documentation</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ All 200+ utilities</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Unlimited projects</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Community support</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ MIT License</li>
                     </ul>
-                    <button class="chai-w-full chai-bg-white chai-color-indigo chai-py-12 chai-rounded-lg chai-text-base chai-font-semibold chai-mt-32" style="border: 2px solid #6366f1; cursor: pointer;">Get Started</button>
+                    <button class="chai-w-full bg-parchment-light text-ink chai-py-14 chai-rounded-lg chai-text-base chai-font-semibold chai-mt-40" style="border: 2px solid rgba(28, 16, 7, 0.15); cursor: pointer; transition: all 0.3s;">Get Started</button>
                 </div>
 
                 <!-- Pro Plan -->
-                <div class="chai-bg-indigo chai-p-40 chai-rounded-2xl" style="flex: 0 0 320px; box-shadow: 0 10px 40px rgba(99, 102, 241, 0.3); position: relative;">
-                    <div class="chai-bg-yellow chai-color-black chai-px-12 chai-py-4 chai-rounded-full chai-text-xs chai-font-bold" style="position: absolute; top: -12px; right: 24px;">POPULAR</div>
-                    <div class="chai-text-lg chai-font-semibold chai-color-white chai-mb-8">Professional</div>
-                    <div class="chai-mb-24">
-                        <span class="chai-text-5xl chai-font-extrabold chai-color-white">$29</span>
-                        <span class="chai-text-lg chai-color-white">/month</span>
+                <div class="hover-card bg-spice-orange chai-p-48 chai-rounded-2xl" style="flex: 0 0 340px; box-shadow: 0 20px 60px rgba(249, 115, 22, 0.25); position: relative; transform: scale(1.05);">
+                    <div class="chai-bg-yellow chai-color-black chai-px-14 chai-py-6 chai-rounded-full chai-text-xs chai-font-bold" style="position: absolute; top: -14px; right: 24px; background: #fbbf24;">POPULAR</div>
+                    <div class="chai-text-lg chai-font-semibold chai-color-white chai-mb-8" style="opacity: 0.9;">Professional</div>
+                    <div class="chai-mb-32">
+                        <span class="display-font chai-text-5xl chai-font-bold chai-color-white">$29</span>
+                        <span class="chai-text-lg chai-color-white" style="opacity: 0.7;">/month</span>
                     </div>
                     <ul style="list-style: none; padding: 0;">
-                        <li class="chai-text-base chai-color-white chai-mb-12">✓ Everything in Starter</li>
-                        <li class="chai-text-base chai-color-white chai-mb-12">✓ Advanced components</li>
-                        <li class="chai-text-base chai-color-white chai-mb-12">✓ Priority support</li>
-                        <li class="chai-text-base chai-color-white chai-mb-12">✓ Custom themes</li>
-                        <li class="chai-text-base chai-color-white chai-mb-12">✓ Team collaboration</li>
+                        <li class="chai-text-base chai-color-white chai-mb-16" style="opacity: 0.95;">✓ Everything in Starter</li>
+                        <li class="chai-text-base chai-color-white chai-mb-16" style="opacity: 0.95;">✓ Premium components</li>
+                        <li class="chai-text-base chai-color-white chai-mb-16" style="opacity: 0.95;">✓ Priority support</li>
+                        <li class="chai-text-base chai-color-white chai-mb-16" style="opacity: 0.95;">✓ Custom themes</li>
+                        <li class="chai-text-base chai-color-white chai-mb-16" style="opacity: 0.95;">✓ Team collaboration</li>
                     </ul>
-                    <button class="chai-w-full chai-bg-white chai-color-indigo chai-py-12 chai-rounded-lg chai-text-base chai-font-bold chai-mt-32" style="border: none; cursor: pointer;">Start Free Trial</button>
+                    <button class="chai-w-full chai-bg-white spice-orange chai-py-14 chai-rounded-lg chai-text-base chai-font-bold chai-mt-40" style="border: none; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); transition: all 0.3s;">Start Free Trial</button>
                 </div>
 
                 <!-- Enterprise Plan -->
-                <div class="chai-bg-white chai-p-40 chai-rounded-2xl" style="flex: 0 0 320px; border: 2px solid #e5e7eb;">
-                    <div class="chai-text-lg chai-font-semibold chai-color-gray chai-mb-8">Enterprise</div>
-                    <div class="chai-mb-24">
-                        <span class="chai-text-5xl chai-font-extrabold chai-color-black">$99</span>
-                        <span class="chai-text-lg chai-color-gray">/month</span>
+                <div class="hover-card bg-parchment-light chai-p-48 chai-rounded-2xl" style="flex: 0 0 340px; border: 2px solid rgba(28, 16, 7, 0.08);">
+                    <div class="chai-text-lg chai-font-semibold text-ink chai-mb-8" style="opacity: 0.7;">Enterprise</div>
+                    <div class="chai-mb-32">
+                        <span class="display-font chai-text-5xl chai-font-bold text-ink">$99</span>
+                        <span class="chai-text-lg text-ink" style="opacity: 0.5;">/month</span>
                     </div>
                     <ul style="list-style: none; padding: 0;">
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Everything in Pro</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Dedicated support</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ SLA guarantee</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Custom integrations</li>
-                        <li class="chai-text-base chai-color-gray chai-mb-12">✓ Training sessions</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Everything in Pro</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Dedicated support</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ SLA guarantee</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Custom integrations</li>
+                        <li class="chai-text-base text-ink chai-mb-16" style="opacity: 0.8;">✓ Training sessions</li>
                     </ul>
-                    <button class="chai-w-full chai-bg-black chai-color-white chai-py-12 chai-rounded-lg chai-text-base chai-font-semibold chai-mt-32" style="border: none; cursor: pointer;">Contact Sales</button>
+                    <button class="chai-w-full text-ink chai-py-14 chai-rounded-lg chai-text-base chai-font-semibold chai-mt-40" style="border: 2px solid #1c1007; cursor: pointer; background: #1c1007; color: #fffaf3; transition: all 0.3s;">Contact Sales</button>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- CTA Section -->
-    <section class="chai-bg-indigo chai-py-80 chai-px-32">
-        <div class="container chai-text-center">
-            <h2 class="chai-text-4xl chai-font-extrabold chai-color-white chai-mb-20">Ready to Build Something Amazing?</h2>
-            <p class="chai-text-xl chai-color-white chai-mb-40" style="opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">Join thousands of developers who are already building beautiful websites with ChaiTailwind.</p>
+    <section class="bg-spice-orange chai-py-100 chai-px-32" style="position: relative; overflow: hidden;">
+        <div class="ring-decoration" style="width: 500px; height: 500px; top: -150px; left: -150px; border-color: rgba(255, 255, 255, 0.1);"></div>
+        <div class="ring-decoration" style="width: 700px; height: 700px; bottom: -250px; right: -250px; border-color: rgba(255, 255, 255, 0.1);"></div>
+
+        <div class="container chai-text-center" style="position: relative; z-index: 1;">
+            <h2 class="display-font chai-text-5xl chai-font-bold chai-color-white chai-mb-24">Ready to Brew Something Beautiful?</h2>
+            <p class="chai-text-xl chai-color-white chai-mb-48" style="opacity: 0.9; max-width: 700px; margin-left: auto; margin-right: auto;">
+                Join developers who are building beautiful websites with the warmth of ChaiTailwind.
+            </p>
             <div class="chai-flex chai-justify-center chai-gap-16">
-                <button class="chai-bg-white chai-color-indigo chai-px-40 chai-py-16 chai-rounded-lg chai-text-lg chai-font-bold" style="border: none; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">Get Started Now</button>
-                <button class="chai-color-white chai-px-40 chai-py-16 chai-rounded-lg chai-text-lg chai-font-semibold" style="background: rgba(255,255,255,0.1); border: 2px solid white; cursor: pointer;">View Examples</button>
+                <button class="chai-bg-white spice-orange chai-px-48 chai-py-18 chai-rounded-lg chai-text-lg chai-font-bold" style="border: none; cursor: pointer; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); transition: all 0.3s;">
+                    Start Building Now
+                </button>
+                <button class="chai-color-white chai-px-48 chai-py-18 chai-rounded-lg chai-text-lg chai-font-semibold" style="background: rgba(255, 255, 255, 0.15); border: 2px solid white; cursor: pointer; backdrop-filter: blur(10px); transition: all 0.3s;">
+                    <span class="mono-font">View Examples</span>
+                </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="chai-bg-black chai-py-48 chai-px-32">
+    <footer class="text-ink chai-py-64 chai-px-32" style="background: #1c1007;">
         <div class="container">
-            <div class="chai-flex chai-justify-between chai-mb-40">
+            <div class="chai-flex chai-justify-between chai-mb-48">
                 <div style="flex: 1;">
-                    <div class="chai-text-2xl chai-font-bold chai-color-white chai-mb-16">ChaiTailwind ☕</div>
-                    <p class="chai-text-base chai-color-gray" style="max-width: 300px;">The modern CSS framework for developers who care about speed and simplicity.</p>
+                    <div class="display-font chai-text-3xl chai-font-bold chai-color-white chai-mb-20">ChaiTailwind ☕</div>
+                    <p class="chai-text-base chai-color-white" style="max-width: 320px; opacity: 0.7; line-height: 1.7;">The modern CSS framework for developers who care about speed, simplicity, and warmth.</p>
                 </div>
                 <div style="flex: 1;">
-                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-16">Product</h4>
-                    <div class="chai-flex" style="flex-direction: column; gap: 8px;">
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Features</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Pricing</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Documentation</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Examples</a>
+                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-20" style="opacity: 0.5; text-transform: uppercase; letter-spacing: 0.05em;">Product</h4>
+                    <div class="chai-flex" style="flex-direction: column; gap: 12px;">
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Features</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Pricing</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Documentation</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Examples</a>
                     </div>
                 </div>
                 <div style="flex: 1;">
-                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-16">Company</h4>
-                    <div class="chai-flex" style="flex-direction: column; gap: 8px;">
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">About</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Blog</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Careers</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Contact</a>
+                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-20" style="opacity: 0.5; text-transform: uppercase; letter-spacing: 0.05em;">Company</h4>
+                    <div class="chai-flex" style="flex-direction: column; gap: 12px;">
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">About</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Blog</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">GitHub</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Contact</a>
                     </div>
                 </div>
                 <div style="flex: 1;">
-                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-16">Legal</h4>
-                    <div class="chai-flex" style="flex-direction: column; gap: 8px;">
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Privacy</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Terms</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">License</a>
+                    <h4 class="chai-text-sm chai-font-bold chai-color-white chai-mb-20" style="opacity: 0.5; text-transform: uppercase; letter-spacing: 0.05em;">Legal</h4>
+                    <div class="chai-flex" style="flex-direction: column; gap: 12px;">
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Privacy</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">Terms</a>
+                        <a href="#" class="chai-text-base chai-color-white" style="text-decoration: none; opacity: 0.7; transition: opacity 0.2s;">License</a>
                     </div>
                 </div>
             </div>
-            <div class="chai-pt-24" style="border-top: 1px solid #374151;">
+            <div class="chai-pt-32" style="border-top: 1px solid rgba(255, 255, 255, 0.1);">
                 <div class="chai-flex chai-justify-between chai-items-center">
-                    <p class="chai-text-sm chai-color-gray">© 2024 ChaiTailwind. All rights reserved.</p>
-                    <div class="chai-flex chai-gap-24">
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">Twitter</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">GitHub</a>
-                        <a href="#" class="chai-text-sm chai-color-gray" style="text-decoration: none;">LinkedIn</a>
+                    <p class="chai-text-sm chai-color-white" style="opacity: 0.5;">© 2024 ChaiTailwind. Brewed with ☕ and vanilla JavaScript.</p>
+                    <div class="chai-flex chai-gap-32">
+                        <a href="#" class="chai-text-sm chai-color-white" style="text-decoration: none; opacity: 0.5; transition: opacity 0.2s;">Twitter</a>
+                        <a href="#" class="chai-text-sm chai-color-white" style="text-decoration: none; opacity: 0.5; transition: opacity 0.2s;">GitHub</a>
+                        <a href="#" class="chai-text-sm chai-color-white" style="text-decoration: none; opacity: 0.5; transition: opacity 0.2s;">LinkedIn</a>
                     </div>
                 </div>
             </div>
