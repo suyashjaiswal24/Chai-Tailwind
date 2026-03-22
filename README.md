@@ -54,7 +54,37 @@ Download the files and include them in order:
 
 ## Quick Start
 
-1. **Include ChaiTailwind:**
+**Complete HTML Example:**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChaiTailwind Example</title>
+</head>
+<body>
+    <!-- Your content with chai- utility classes -->
+    <div class="chai-bg-blue chai-color-white chai-p-24 chai-rounded-xl">
+        <h2 class="chai-text-2xl chai-font-bold chai-mb-16">Card Title</h2>
+        <p class="chai-text-base">Card content goes here.</p>
+    </div>
+
+    <!-- Include ChaiTailwind at the end of body -->
+    <script src="https://cdn.jsdelivr.net/npm/@suyashjaiswal/chaitailwind@1/dist/chaitailwind.min.js"></script>
+</body>
+</html>
+```
+
+**Important:** Place the script at the **end of the `<body>` tag** so that all HTML elements are loaded before ChaiTailwind initializes.
+
+### Installation Options
+
+**Via CDN (Recommended for quick start):**
+```html
+<script src="https://cdn.jsdelivr.net/npm/@suyashjaiswal/chaitailwind@1/dist/chaitailwind.min.js"></script>
+```
 
 **Via NPM:**
 ```bash
@@ -62,19 +92,6 @@ npm install @suyashjaiswal/chaitailwind
 ```
 ```html
 <script src="node_modules/@suyashjaiswal/chaitailwind/dist/chaitailwind.min.js"></script>
-```
-
-**Via CDN:**
-```html
-<script src="https://cdn.jsdelivr.net/npm/@suyashjaiswal/chaitailwind@1/dist/chaitailwind.min.js"></script>
-```
-
-2. **Use the utilities:**
-```html
-<div class="chai-bg-blue chai-color-white chai-p-24 chai-rounded-xl">
-    <h2 class="chai-text-2xl chai-font-bold chai-mb-16">Card Title</h2>
-    <p class="chai-text-base">Card content goes here.</p>
-</div>
 ```
 
 That's it! The framework automatically applies styles to any element with `chai-` classes.
