@@ -34,13 +34,13 @@ Becomes:
 ### NPM
 
 ```bash
-npm install chaitailwind
+npm install @suyashjaiswal/chaitailwind
 ```
 
 ### CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chaitailwind@1/dist/chaitailwind.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@suyashjaiswal/chaitailwind@1/dist/chaitailwind.min.js"></script>
 ```
 
 ### Manual Download
@@ -58,15 +58,15 @@ Download the files and include them in order:
 
 **Via NPM:**
 ```bash
-npm install chaitailwind
+npm install @suyashjaiswal/chaitailwind
 ```
 ```html
-<script src="node_modules/chaitailwind/dist/chaitailwind.min.js"></script>
+<script src="node_modules/@suyashjaiswal/chaitailwind/dist/chaitailwind.min.js"></script>
 ```
 
 **Via CDN:**
 ```html
-<script src="https://cdn.jsdelivr.net/npm/chaitailwind@1/dist/chaitailwind.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@suyashjaiswal/chaitailwind@1/dist/chaitailwind.min.js"></script>
 ```
 
 2. **Use the utilities:**
