@@ -1,4 +1,9 @@
+// ===============================
+// 🔥 ChaiTailwind Engine
+// ===============================
 
+
+//#region Utility-style-generators
 // Color palette
 const colors = {
     red: '#ef4444',
@@ -146,71 +151,107 @@ const styles = {
     // Gap utility
     gap: (v) => `gap: ${v}px`,
 }
+//#endregion
 
 
+// Cache for computed styles
 const cache = new Map();
 
-function getStyle(className) {
-    // Check cache first
-    if (cache.has(className)) return cache.get(className);
+function getStyle(type, value) {
+    const key = `${type}-${value}`;
 
-    // Remove 'chai-' prefix
-    const withoutPrefix = className.replace('chai-', '');
-    const parts = withoutPrefix.split('-');
+    if (cache.has(key)) return cache.get(key);
 
-    let result = '';
+    if (!styles[type]) return "";
 
-    // Try to find the utility in styles object
-    // First try exact match (for utilities like 'flex', 'block', 'hidden')
-    if (styles[withoutPrefix]) {
-        result = styles[withoutPrefix]();
-    }
-    // Try two-part utilities (like 'pt-4', 'bg-red', 'text-center')
-    else if (parts.length >= 2) {
-        const type = parts[0];
-        const value = parts.slice(1).join('-'); // Join back for values like '2xl'
+    const result = styles[type](value);
+    cache.set(key, result);
 
-        if (styles[type]) {
-            result = styles[type](value);
-        }
-    }
-    // Try three-part utilities (like 'justify-center', 'items-center')
-    if (!result && parts.length >= 2) {
-        const compound = parts.slice(0, 2).join('-');
-        if (styles[compound]) {
-            result = styles[compound]();
-        }
-    }
-
-    cache.set(className, result);
     return result;
 }
 
+// ===============================
+// 🧠 Core Engine
+// ===============================
 
-const elements = document.querySelectorAll('[class *= "chai-"]')
-console.log("Elements: ", elements) // Elements:  NodeList(3) [h1.chai-border-10.chai-color-green, h1.chai-color-blue, h1.nochai-color-blue]
+function applyChaiStyles(root = document) {
+    const elements = root.querySelectorAll('[class*="chai-"]');
 
-elements.forEach(e => {
+    elements.forEach((el) => {
+        // Prevent duplicate processing
+        if (el.dataset.chaiDone) return;
 
-    if (e.dataset.chaiDone) return;
+        const chaiClasses = [...el.classList].filter((c) =>
+            c.startsWith("chai-")
+        );
 
-    const chaiList = [...e.classList].filter(c => c.startsWith("chai-"));
-    console.log("ChaiList: ", chaiList) // ChaiList:  (2) ['chai-border-10', 'chai-color-green']    ChaiList:  ['chai-color-blue']    ChaiList:  []
+        if (chaiClasses.length === 0) return;
 
-    let style = ""
+        let finalStyle = "";
 
-    chaiList.forEach((ch) => {
-        console.log("Chai Element's class: ", ch)
+        chaiClasses.forEach((cls) => {
+            const parts = cls.split("-");
+            const type = parts[1];
+            const value = parts[2] || "";
 
-        const generatedStyle = getStyle(ch);
-        if (generatedStyle) {
-            style += generatedStyle + "; ";
-        }
-    })
+            const style = getStyle(type, value);
+            if (style) {
+                finalStyle += style + "; ";
+            }
+        });
 
-    e.style.cssText += style // <h1 class="chai-border-10 chai-color-green" style="border: 10px solid red; color: green;">Hello ji</h1>       <h1 class="chai-color-blue" style="color: blue;">Hello ji</h1>
+        // Apply styles in one go (performance)
+        el.style.cssText += finalStyle;
 
-    e.dataset.chaiDone = "true";
-});
+        // Mark as processed
+        el.dataset.chaiDone = "true";
+    });
+}
 
+// ===============================
+// 👀 Mutation Observer
+// ===============================
 
+function startObserver() {
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+
+            // Handle new elements
+            mutation.addedNodes.forEach((node) => {
+                if (node.nodeType !== 1) return;
+
+                applyChaiStyles(node);
+            });
+
+            // Handle class changes
+            if (
+                mutation.type === "attributes" &&
+                mutation.attributeName === "class"
+            ) {
+                const el = mutation.target;
+
+                // Reset so it can reprocess
+                delete el.dataset.chaiDone;
+
+                applyChaiStyles(el.parentNode);
+            }
+        });
+    });
+
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["class"],
+    });
+}
+
+// ===============================
+// 🚀 Init
+// ===============================
+
+// Initial run
+applyChaiStyles();
+
+// Start watching DOM
+startObserver();
